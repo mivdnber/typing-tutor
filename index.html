@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Typing Helper XP PRO Ultimate Edition</title>
+    <style>
+      * {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="generate">
+      <input type="text" name="alphabet" id="alphabet" value="abcdefghijklmnopqrstuvwzyx">
+      <button>Generate</button>
+    </form>
+    <ul id="sentences"></ul>
+    <script>
+      const alphabetInput = document.querySelector('#alphabet');
+      const generateForm = document.querySelector('#generate');
+      const sentencesElement = document.querySelector('#sentences');
+
+      const choose = alphabet => alphabet[Math.floor(Math.random() * alphabet.length)];
+      const generateWord = (alphabet, n) => Array(n).fill(1).map(_ => choose(alphabet)).join('')
+      const minLength = 3;
+      const maxLength = 5;
+      generateForm.addEventListener('submit', e => {
+        e.preventDefault();
+        sentencesElement.innerHTML = '';
+        for(let i = 0; i < 20; i++) {
+          const ul = document.createElement('ul');
+          const alphabet = alphabetInput.value;
+          const length = minLength + Math.floor((maxLength - minLength) * Math.random());
+          ul.innerHTML = generateWord(alphabet, length)
+          sentencesElement.appendChild(ul);
+          console.log(ul)
+        }
+      });
+
+    </script>
+  </body>
+</html>
